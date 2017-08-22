@@ -1,0 +1,17 @@
+<title>D3.js</title>
+<h1>D3.js</h1>
+	<p>Now that we have a graphic to manipulate in our SVG on the page, we will need to get some data to manipulate. To do so, we will be utilizing specific functions from the D3.js library, particularly functions that have to do with the subset D3.geo. However, the principles discussed here are applicable to several other D3 visualization types.
+	
+</p><h2>Path</h2>
+	<p>First, you want to create a function object to call when you wish to draw on your SVG. These lines or strokes are called paths. We will set up our initial path using the following code: </p>
+	<code><xmp>var path = d3.geoPath()</xmp></code>
+	
+<h2>Projection</h2>
+	<p>Just because you can pick up a pencil doesn't mean you know where to put it on the paper. We need to know where to draw our paths. A projection allows us to establish coordinates on the SVG. Our projection will be translated relative to the size of the SVG, and scaled up to fit the SVG file, using the following code:
+	<code></code></p><code><xmp>var projection = d3.geoAlbersUsa()
+	.translate([width/2, height/2])
+	.scale(1275);</xmp></code>
+	<p>Now, we have our canvas (SVG), the paintstrokes (path), and the ability to coordinate where we want it to go (projection). Now we need to get some data to tell us exactly what will be made.</p>
+	<form action="./map">
+		<input type="submit" value="Next">
+	</form>

@@ -1,0 +1,35 @@
+<title>HMTL</title>
+
+<h1>HTML</h1>
+	<p>HyperText Markup Languagae (HTML) is a file type that describes the structure of a webpage via a system of nested tags. We won't be getting into all the intricacies of HTML here. However, you should note that it is the page that will load on the browser. Below is a template of an HTML page that can be used to build your data visualization.</p>
+	
+	<code><xmp><!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="description" content="Maps Using D3!">
+		<meta name="author" content="Jake Skinner">
+		<title>Maps Using D3!</title>
+	</head>
+	<body>
+		<svg></svg>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="https://d3js.org/topojson.v2.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html></xmp></code>
+	
+	<p>Take a closer look at each of these HTML tags:
+	<ul>
+		<li>The <code>!DOCTYPE</code> tag lets the browser know what type and version of the document its looking at.</li>
+		<li>The <code>html</code> tag encloses the coded portion of the document</li>
+		<li>The <code>head</code> tag contains information relevant to the document, such as a <code>title</code> (which appears in the tap up top), as well as some <code>meta</code> tags that provide information to other sites, like seaerch engines.</li>
+		<li>The <code>body</code> tag contains what will actually go on the page.</li>
+		<li><code>svg</code> stands for Scalable Vector Graphics. This is the playground that D3 will use to construct your visualization. For now, let's leave it blank.</li>
+		<li>The <code>script</code> tags allow us define client-side scripts typically using JavaScript, another language we will explore below. We are bringing in 3 scripts: the first two are D3 libraries, and the last is the local script that we will write.</li>
+	</ul>
+	Save this file as <code>index.html</code> using a text editor.
+	</p>
+	<form action="./javascript">
+		<input type="submit" value="Next">
+	</form>

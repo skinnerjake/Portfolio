@@ -1,0 +1,51 @@
+<title>Data on the Map</title>
+<h1>Data on the Map</h1>
+	<p>Now you hav a map, but anybody can make a map. You could google "map of USA" and get better maps than the one we just made. Remember, we want to make data visualizations, so we are going to add data to our map. I've utilized a regular JSON file from a GitHub user <a href="https://gist.github.com/Miserlou/c5cd8364bf9b2420bb29#file-cities-json">Miserlou's public repository</a>. This file contains geographic locations (latitude and longitude) as well as information like population and growth, for the 1000 largest U.S. cities between 2003-2013. Its not particularly recent data, but it serves our purpose.</p>
+<h2>Getting More Data</h2>
+	To retrieve the data, we use the same asynchronous call as before, using the respective URL:</p>
+	<code><xmp>d3.json("https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json", function(error, file) {
+	if (error) return console.error(error);
+	//more code here
+});</xmp></code>
+	<p>However, the file is not a geoJSON file, so it is going to be a little difficult to parse. I have written some helper function objects to pull out useful data and format it the way the SVG expects it.
+	
+	<code><xmp>var coordinates = function(city) {
+		return [city.longitude, city.latitude];
+	};
+	
+	var radius = function(city) {
+		return 25 * Math.sqrt(parseInt(city.population) / (1000000 * 3.14));
+	};
+	
+	var color = function(city) {
+		var growth = parseFloat(city.growth_from_2000_to_2013);
+			r = 0, g = 0, b = 0;
+		if (growth > 0) {
+			if (growth > 30) growth = 30;
+			b = Math.round(255 - (255 * growth / 30));
+			g = 255 - b;
+		}
+		else {
+			if (growth < -10) growth = -10;
+			b = Math.round(255 - (255 * growth / -10));
+			r = 255 - b;
+		}
+		return "rgb(" + r + "," + g + "," + b + ")";
+	};</xmp></code>
+<h2>Going in Circles</h2>
+	<p>The SVG file doesn't take just paths. It can actually accept all types of shapes. We are going to add circles. We do this in a very similar way to the paths of the map JSON; however, the loci of the circles need to be passed through our projection object in order to be laid exactly where they are supposed to on the document.
+	<code><xmp>	svg.selectAll("circle")
+		.data(file).enter()
+		.append("circle")
+			.attr("cx", function(d) {return projection(coordinates(d))[0];})
+			.attr("cy", function(d) {return projection(coordinates(d))[1];})</xmp></code>
+	<p>This section of code creates a circle for each city in the JSON file, and appends it to the table at the location it belongs:</p>
+	<svg></svg>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="https://d3js.org/topojson.v2.min.js"></script>
+		<script src="https://rawgit.com/skinnerjake/How-To/master/no_radius.js"></script>
+	<p>This is better; Data is finally visible. But it isn't appealing to  look at and it doesn't tell me much outside of areas of high population density. It needs some more work.</p>	
+	<form action="./final">
+		<input type="submit" value="Next">
+	</form>
+	
